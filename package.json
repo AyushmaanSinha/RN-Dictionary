@@ -1,25 +1,26 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "next-temp",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "@expo/metro-runtime": "~3.2.3",
-    "@expo/vector-icons": "^14.0.0",
-    "expo": "~51.0.0",
-    "expo-status-bar": "~1.12.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.74.5",
-    "react-native-web": "~0.19.10",
-    "react-native-webview": "^14.0.1"
+    "@types/three": "^0.184.1",
+    "next": "16.2.9",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "three": "^0.184.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
-  },
-  "private": true
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.9",
+    "typescript": "^5"
+  }
 }

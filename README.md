@@ -1,77 +1,89 @@
-# 📖 Pocket Dictionary: Cinematic 3D WebGL App
+# 📖 Pocket Dictionary: Next.js 3D WebGL WebApp
 
-A premium, highly-interactive WebGL-powered 3D pocket dictionary built with React Native (Expo) and WebGL (Three.js). The app features an editorial dark aesthetic (pure black `#000000` and peach/bronze `#FFA586` theme) and blends real-time dictionary lookups with custom animations and interactive digital sculptures.
+A premium, highly-interactive WebGL-powered 3D pocket dictionary built with **Next.js (App Router)**, **TypeScript**, **Three.js**, and **Vanilla CSS**. 
+
+The application utilizes an editorial dark aesthetic (pure black `#000000` background and peach/bronze `#FFA586` theme) and blends live dictionary lookups with animated digital sculptures.
 
 ---
 
 ## ✨ Features
 
-### 1. Interactive 3D WebGL Studio
-* **Digital Sculpture**: Procedural studio render loading an animated `bronze_horse.glb` running model.
-* **Scroll-driven Orbit**: Camera follows an elliptical path wrapping around the 3D model as the user scrolls, creating a keyframe-level cinematic reveal.
-* **Liquid Wave Shader**: A custom Three.js multi-frequency background wave shader transitioning from warm copper-bronze to deep sapphire-blue on scroll.
-* **Spark Particles**: High-performance, floating particle systems drifting up behind the sculpture with custom colors (orange and blue sparks).
-* **Lighting Rig**: Spotlights with soft shadows, rim lighting, fill lighting, and exponential fog (`THREE.FogExp2`).
+### 1. 3D WebGL Studio Render (Three.js)
+* **Digital Sculpture**: Loads an animated running `bronze_horse.glb` model directly in React.
+* **Continuous Floating Float/Rotation Physics**: The model features an automatic slow rotation over time (`time * yRotationSpeed`) and floats vertically on a sine wave, keeping the 3D canvas active and immersive.
+* **Scroll-driven Camera Orbit**: Camera follows an elliptical path orbiting the 3D model as the user scrolls, creating a keyframe-level cinematic transition.
+* **Liquid Wave Background**: A custom Three.js multi-frequency background wave shader transitioning dynamically from warm copper-bronze to deep sapphire-blue on scroll.
+* **Glowing Letter Sparks**: High-performance particle systems drifting behind the horse featuring actual dictionary letter glyphs (`A`, `C`, `E`, `H`, `M`, `R`, `S`, `T`, `W`, `Z`) with custom glowing peach/orange and sapphire/blue shadows.
+* **Lighting Rig**: Soft SpotLight shadows, rim lights, fill lights, and exponential fog (`THREE.FogExp2`).
 
-### 2. Multi-lingual Dictionary Lookup
-* **Live API Queries**: Queries the Free Dictionary API dynamically with support for up to 11 languages (English, Spanish, French, German, Italian, Portuguese, Arabic, Japanese, Korean, Hindi, Turkish, Russian).
-* **Meanings & Definitions**: Iterates over parts of speech and displays up to 3 formatted meanings per section.
-* **Audio Pronunciation**: Plays high-quality audio pronunciation using API-delivered audio streams with a clean fallback to browser SpeechSynthesis.
-* **Lookup Caching**: Implements client-side in-memory caching to save API calls and ensure instant response times for repeated lookups.
+### 2. Multilingual Dictionary Lookup
+* **Live API Queries**: Integrates with the Free Dictionary API, supporting up to 12 languages (English, Spanish, French, German, Italian, Portuguese, Arabic, Japanese, Korean, Hindi, Turkish, Russian).
+* **Meanings & Definitions**: Iterates over parts of speech and displays detailed definition blocks.
+* **Audio Pronunciation**: Plays high-quality audio pronunciation using API-delivered streams with fallback to browser SpeechSynthesis.
+* **In-Memory Cache**: Caches lookup results locally in-memory for instant retrieval.
 
 ### 3. Autocomplete Search Bar
-* **Smart Dropdown**: Shows matches instantly from local pools of Word of the Day and Vocab lists, merged with a debounced Datamuse API lookup for extended word suggestions.
-* **Key-driven Hiding**: Hides automatically on click-outside and Enter key press.
-* **Visibility fix**: Implemented a CSS transition block utilizing `visibility: hidden` to guarantee that invisible slide elements do not intercept click events meant for the active search bar.
+* **Instant Dropdown**: Matches inputs against local pools of Word of the Day and Vocab lists, merged with a debounced Datamuse API lookup.
+* **Visibility Transitions**: Slide visibility toggling (`visibility: hidden` to `visibility: visible`) prevents pointer events from overlapping on slide transitions.
 
 ### 4. Interactive Learning Tools
-* **Word of the Day (WOTD)**: Generates random WOTD selections on load with definition examples and links.
-* **Trending capsules**: Dynamic, aesthetic capsule cards that search automatically when clicked.
-* **Vocab Builder Flashcards**: Interactive double-sided flashcards with unique icons and smooth 3D flip animations to build vocabulary.
+* **Regional Preloader**: Cycles through Indian regional greetings on launch, leading to a cinematic text scale-and-glow transition of the brand logo into the navbar.
+* **Word of the Day**: Selects a randomized word on load with dynamic matching header imagery.
+* **Trending Capsules**: Randomly shuffles trending words into click-to-lookup capsules.
+* **Vocab Builder Flashcards**: Interactive 3D flip card utilizing CSS `perspective` and `transform-style: preserve-3d` for smooth flip actions, with cards locked directly on top of each other using absolute positioning.
+* **Scroll Progress Indicator**: Clean vertical progress bar positioned on the right-most grid line indicating active slides.
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Project Structure
 
 ```
-epic-hopper/
-├── App.js                   # Entry point for the Expo Native Application
-├── app.json                 # Expo project metadata configuration
-├── assets/
-│   ├── laocoon.html         # Main WebGL page with Three.js rendering and dictionary javascript logic
-│   ├── app_background.png   # Fallback / design asset
-│   └── (icons/images)       # System icons and icons configuration
-├── screens/
-│   └── Home3DTab.js         # React Native WebView screen embedding assets/laocoon.html
-├── package.json             # NPM package scripts and dependencies
-└── README.md                # Project documentation
+RN-Dictionary/
+├── public/                 # Static assets folder
+│   └── assets/             # Images, splash and background assets (fully cleaned)
+├── src/
+│   ├── app/
+│   │   ├── globals.css     # Premium Vanilla CSS styles & animations
+│   │   ├── layout.tsx      # Root html wrapper & Script loader
+│   │   └── page.tsx        # Main application page & search logic
+│   ├── components/
+│   │   ├── Preloader.tsx   # Indian regional greetings preloader
+│   │   └── ThreeCanvas.tsx # WebGL Three.js canvas component (Client component)
+│   ├── constants/
+│   │   └── words.ts        # Central type-safe database for dictionary words
+│   └── types/
+│       └── custom.d.ts     # Typescript custom element declarations for <ion-icon>
+├── tsconfig.json           # TypeScript configuration
+├── next.config.ts          # Next.js configurations
+└── package.json            # Script runs & dependencies
 ```
 
 ---
 
-## 🚀 Running Locally
+## 🚀 Local Execution Setup
 
-Follow these steps to run the application on your local machine:
+To run the Next.js web application locally on your machine, follow these steps:
 
-### 1. Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed (version 18+ recommended) and `npm` package manager.
-
-### 2. Install Dependencies
-Clone the repository and run the following command in the project root directory:
+### 1. Install Dependencies
+Initialize and download package files using `npm`:
 ```bash
 npm install
 ```
 
-### 3. Run the Development Server
-Start the Expo Metro Bundler server:
+### 2. Run Development Server
+Start the Next.js Dev Server (runs with Turbopack for instant compilations):
 ```bash
-npm run web
+npm run dev
 ```
-This runs the application targeting the web browser environment, which will automatically bundle and launch the local website.
 
-### 4. View in Browser
-Open your browser and navigate to:
+The application will be served at [http://localhost:3000](http://localhost:3000).
+
+### 3. Build for Production
+To check production bundles or compile build assets:
+```bash
+npm run build
 ```
-http://localhost:8081
+To run the production build locally:
+```bash
+npm run start
 ```
-*Note: If port `8081` is already in use, the terminal output will print the alternate port (e.g., `8082` or `19006`).*
